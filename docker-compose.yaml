@@ -2,7 +2,7 @@ version: "3"
 
 services:
   redpanda:
-    image: vectorized/redpanda:v22.3.11
+    image: redpandadata/redpanda:v22.3.11
     container_name: redpanda
     ports:
       - "9092:9092"
@@ -65,7 +65,7 @@ services:
       - |
         #
         echo "Installing connector plugins"
-        confluent-hub install --no-prompt tabular/iceberg-kafka-connect:0.4.11
+        confluent-hub install --no-prompt tabular/iceberg-kafka-connect:0.6.19
         #
         echo "Launching Kafka Connect worker"
         /etc/confluent/docker/run & 
@@ -105,7 +105,7 @@ services:
         sleep infinity
 
   console:
-    image: vectorized/console:v2.1.1
+    image: redpandadata/console:v2.1.1
     entrypoint: /bin/sh
     command: -c "echo \"$$CONSOLE_CONFIG_FILE\" > /tmp/config.yml; /app/console"
     environment:
